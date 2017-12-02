@@ -60,7 +60,7 @@ extern "C" {
 
 #[link(name = "hacl")]
 extern "C" {
-    fn Ed25519_secret_to_public(out: *const u8, secret: *const u8);
+    fn Hacl_Ed25519_secret_to_public(out: *const u8, secret: *const u8);
 }
 
 
@@ -146,7 +146,7 @@ pub fn ed25519_verify(public_key: &[u8], message: &[u8], signature: &[u8]) -> Re
     return Ok(val);
 }
 
-/// calculate public key given a secret key
+/// calculate public key given a secret key 
 pub fn ed25519_secret_to_public(public_key: &mut [u8], secret_key: &[u8]) -> Result<(), String> {
     if secret_key.len() != KEY_LEN {
         return Err(String::from("Public key length error"));
@@ -156,7 +156,7 @@ pub fn ed25519_secret_to_public(public_key: &mut [u8], secret_key: &[u8]) -> Res
     }
 
     unsafe {
-        Ed25519_secret_to_public(public_key.as_ptr(), secret_key.as_ptr());
+        Hacl_Ed25519_secret_to_public(public_key.as_ptr(), secret_key.as_ptr());
     }
 
     return Ok(());
